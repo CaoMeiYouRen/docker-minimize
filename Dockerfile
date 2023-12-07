@@ -37,10 +37,9 @@ WORKDIR /home/app
 
 # COPY --from=builder /home/app/package.json /home/app/.npmrc /home/app/
 # COPY --from=builder /home/app/dist /home/app/dist
+# COPY --from=docker-minifier /home/app/node_modules /home/app/node_modules
 
-# RUN pnpm i --production=true
-
-COPY --from=docker-minifier /app /app
+COPY --from=docker-minifier /home/app /home/app
 
 EXPOSE 3000
 
