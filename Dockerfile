@@ -16,7 +16,7 @@ FROM caomeiyouren/alpine-nodejs:1.1.0 as docker-minifier
 
 WORKDIR /minifier
 
-COPY package.json .npmrc /minifier/
+# COPY package.json .npmrc /minifier/
 
 RUN pnpm add @vercel/nft@0.24.4 fs-extra@11.2.0 --save-prod
 
@@ -30,8 +30,15 @@ RUN cp /home/app/scripts/minify-docker.js /minifier/ && \
     rm -rf /home/app/app-minimal
 
 # 阶段三：生产阶段
-FROM node:20-alpine
+FROM alpine:latest
+# FROM node:20-alpine
 # caomeiyouren/alpine-nodejs:1.1.0
+# 安装nodejs环境
+RUN echo "http://mirrors.aliyun.com/alpine/edge/main/" > /etc/apk/repositories \
+    && echo "http://mirrors.aliyun.com/alpine/edge/community/" >> /etc/apk/repositories \
+    && apk update \
+    && apk add --no-cache --update nodejs git \
+    && node -v && git --version
 
 WORKDIR /home/app
 
@@ -43,6 +50,6 @@ COPY --from=docker-minifier /home/app /home/app
 
 EXPOSE 3000
 
-ENTRYPOINT ["dumb-init", "--"]
+# ENTRYPOINT ["dumb-init", "--"]
 
 CMD ["node", "dist/main"]
