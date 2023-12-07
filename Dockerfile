@@ -18,11 +18,11 @@ WORKDIR /minifier
 
 COPY package.json .npmrc /minifier/
 
-RUN pnpm add @vercel/nft@0.24.4 fs-extra@11.2.0
+RUN pnpm add @vercel/nft@0.24.4 fs-extra@11.2.0 --save-prod
 
 COPY --from=builder /home/app /home/app
 
-RUN cp /home/app/scripts/minify-docker.js /minifier/ \
+RUN cp /home/app/scripts/minify-docker.js /minifier/ && \
     export PROJECT_ROOT=/home/app/ && \
     node /minifier/minify-docker.js && \
     rm -rf /home/app/node_modules /home/app/scripts && \
