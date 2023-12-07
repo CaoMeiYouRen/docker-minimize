@@ -37,3 +37,5 @@ lerna-debug.log*
 .env.*.local
 
 audit.json
+
+app-minimal
