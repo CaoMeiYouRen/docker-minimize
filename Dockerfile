@@ -31,8 +31,8 @@ RUN cp /home/app/scripts/minify-docker.js /minifier/ && \
 
 # 阶段三：生产阶段
 # FROM alpine:latest
-FROM node:20-alpine
-# caomeiyouren/alpine-nodejs:1.1.0
+# FROM node:20-alpine
+FROM caomeiyouren/alpine-nodejs:1.1.0
 # 安装nodejs环境
 # RUN echo "http://mirrors.aliyun.com/alpine/edge/main/" > /etc/apk/repositories \
 #     && echo "http://mirrors.aliyun.com/alpine/edge/community/" >> /etc/apk/repositories \
